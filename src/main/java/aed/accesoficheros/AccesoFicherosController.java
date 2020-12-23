@@ -19,6 +19,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 public class AccesoFicherosController implements Initializable {
-	private ListProperty<String> ficherosList = new SimpleListProperty<String>();
+	private ListProperty<String> ficherosList = new SimpleListProperty<String>(FXCollections.observableArrayList());
 	private StringProperty contenidoFichero = new SimpleStringProperty();
 	// view
 	@FXML
@@ -202,9 +203,9 @@ public class AccesoFicherosController implements Initializable {
 		try {
 			// Get the file
 			File f = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+			String [] nombres = f.list();
 			if (f.exists()) {
-				for (File file : f.listFiles())
-					ficherosList.add(file.getName());
+					ficherosList.addAll(nombres);
 			} else {
 				existeCreadoText.setText("No existe");
 			}
