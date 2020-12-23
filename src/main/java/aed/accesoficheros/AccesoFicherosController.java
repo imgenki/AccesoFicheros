@@ -1,12 +1,18 @@
 package aed.accesoficheros;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -18,11 +24,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 public class AccesoFicherosController implements Initializable {
-
-	// model
-	private ObjectProperty<FicheroModel> fichero = new SimpleObjectProperty<>();
+	private ListProperty<String> ficherosList = new SimpleListProperty<>();
 	// view
 	@FXML
 	private GridPane view;
@@ -55,13 +60,16 @@ public class AccesoFicherosController implements Initializable {
 	private ListView<String> ficherosCarpetasList;
 
 	@FXML
-	private ListView<String> contenidoFicheroList;
+	private Text contenidoFicheroText;
 
 	@FXML
 	private Button verContenidoButton;
 
 	@FXML
 	private Button modificarFicheroButton;
+
+	@FXML
+	private Text existeCreadoText;
 
 	public AccesoFicherosController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/accesoFicherosView.fxml"));
@@ -77,25 +85,53 @@ public class AccesoFicherosController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		ficheroCheckbox.disableProperty().bind(carpetaCheckbox.selectedProperty().asObject());
 		carpetaCheckbox.disableProperty().bind(ficheroCheckbox.selectedProperty().asObject());
+
+		ficherosCarpetasList.itemsProperty().bind(ficherosList);
 	}
 
 	@FXML
 	void onCrearAction(ActionEvent event) {
-		if(ficheroCheckbox.isSelected())
-		 try { 
-	         File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get()); 
-	     } 
-	     catch (Exception e) { 
-	         System.err.println(e); 
-	     } 
-		
-		//if(carpetaCheckbox.isSelected())
-			
+
+		try {
+			File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+			if (ficheroCheckbox.isSelected())
+				if (f1.createNewFile())
+					existeCreadoText.setText("No existe - creado");
+				else
+					existeCreadoText.setText("Ya existe");
+			if (carpetaCheckbox.isSelected())
+				if (f1.mkdir())
+					existeCreadoText.setText("No existe - creado");
+				else
+					existeCreadoText.setText("Ya existe");
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+
 	}
 
 	@FXML
 	void onEliminarAction(ActionEvent event) {
-
+		File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+		if (carpetaCheckbox.isSelected())
+			try {
+				borrarDirectorio(f1);
+				if (f1.delete())
+					existeCreadoText.setText("Borrado");
+				else
+					existeCreadoText.setText("No borrado");
+			} catch (Exception e) {
+				System.err.println(e);
+			}
+		if (ficheroCheckbox.isSelected())
+			try {
+				if (f1.delete())
+					existeCreadoText.setText("Borrado");
+				else
+					existeCreadoText.setText("No borrado");
+			} catch (Exception e) {
+				System.err.println(e);
+			}
 	}
 
 	@FXML
@@ -110,11 +146,66 @@ public class AccesoFicherosController implements Initializable {
 
 	@FXML
 	void onVerContenidoAction(ActionEvent event) {
+		File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
 
+		if (f1.canRead()) {
+			String cadena;
+			FileReader f = null;
+			try {
+				f = new FileReader(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			BufferedReader b = new BufferedReader(f);
+			try {
+				while ((cadena = b.readLine()) != null) {
+					contenidoFicheroText.setText(cadena);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@FXML
 	void onVerFicherosCarpetasAction(ActionEvent event) {
+		if (!ficherosList.isEmpty())
+			ficherosList = null;
+		try {
+			// Get the file
+			File f = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+			if (f.exists()) {
+				File[] ficheros = f.listFiles();
+				for (int x = 0; x < ficheros.length; x++) {
+					ficherosList.add(ficheros[x].getName());
+				}
+
+			} else {
+				existeCreadoText.setText("No existe");
+			}
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+	}
+
+	public static void borrarDirectorio(File directorio) {
+		try {
+
+			File[] ficheros = directorio.listFiles();
+
+			for (int x = 0; x < ficheros.length; x++) {
+				if (ficheros[x].isDirectory())
+					borrarDirectorio(ficheros[x]);
+
+				ficheros[x].delete();
+			}
+		} catch (Exception e) {
+			System.err.println(e);
+		}
 
 	}
+
 }

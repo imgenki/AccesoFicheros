@@ -5,11 +5,13 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <GridPane fx:id="view" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
@@ -47,13 +49,14 @@
       </TextField>
       <Button fx:id="verFicherosCarpetasButton" mnemonicParsing="false" onAction="#onVerFicherosCarpetasAction" text="Ver ficheros y carpetas" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <ListView fx:id="ficherosCarpetasList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-      <ListView fx:id="contenidoFicheroList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.rowSpan="2147483647" />
       <VBox spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
          <children>
             <Button fx:id="verContenidoButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onVerContenidoAction" text="Ver contenido del fichero" />
             <Button fx:id="modificarFicheroButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModificarFicheroAction" text="Modificar fichero" />
          </children>
       </VBox>
+      <Text fx:id="existeCreadoText" strokeType="OUTSIDE" strokeWidth="0.0" text="Existe / Creado" GridPane.rowIndex="2" />
+      <TextArea fx:id="contenidoFicheroText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.rowSpan="2147483647" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
