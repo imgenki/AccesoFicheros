@@ -96,6 +96,7 @@ public class AccesoFicherosController implements Initializable {
 
 		ficherosCarpetasList.itemsProperty().bind(ficherosList);
 		contenidoFicheroText.textProperty().bind(contenidoFichero);
+
 	}
 
 	@FXML
@@ -147,10 +148,14 @@ public class AccesoFicherosController implements Initializable {
 	void onModificarFicheroAction(ActionEvent event) throws IOException {
 
 		File archivo = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+		if(archivo.isDirectory())
+			existeCreadoText.setText("Es directorio");
+		else {
 		FileWriter escribir = new FileWriter(archivo);
 		String texto = "";
 
 		TextInputDialog dialog = new TextInputDialog();
+		dialog.initOwner(App.getPrimaryStage());
 		dialog.setTitle("Modificar fichero");
 		dialog.setHeaderText("Introduce el nuevo texto");
 		dialog.setContentText("Texto:");
@@ -163,51 +168,81 @@ public class AccesoFicherosController implements Initializable {
 			escribir.write(texto.charAt(i));
 		}
 		escribir.close();
+		}
 	}
 
 	@FXML
 	void onMoverAction(ActionEvent event) {
+		try {
 
+			// Get the file
+			File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+			String ruta2 = null;
+
+			TextInputDialog dialog = new TextInputDialog();
+			dialog.initOwner(App.getPrimaryStage());
+			dialog.setTitle("Mover fichero");
+			dialog.setHeaderText("Nombre anterior" + carpetaFicheroText.textProperty().get());
+			dialog.setContentText("Nuevo nombre:");
+			Optional<String> result = dialog.showAndWait();
+			if (result.isPresent()) {
+				ruta2 = result.get();
+			}
+			File f2 = new File(rutaText.textProperty().get() + ruta2);
+			// Create new file
+			// if it does not exist
+			if (f2 != null) {
+				if (f1.renameTo(f2))
+					existeCreadoText.setText("Renombrado: ");
+				else
+					existeCreadoText.setText("No Renombrado: ");
+			}
+		} catch (Exception e) {
+			System.err.println(e);
+		}
 	}
 
 	@FXML
 	void onVerContenidoAction(ActionEvent event) {
 		File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
-
-		if (f1.canRead()) {
-			String cadena;
-			FileReader f = null;
-			try {
-				f = new FileReader(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			BufferedReader b = new BufferedReader(f);
-			try {
-				while ((cadena = b.readLine()) != null) {
-					contenidoFichero.set(cadena);
+		if (f1.isDirectory())
+			existeCreadoText.setText("Es directorio");
+		else {
+			if (f1.canRead()) {
+				String cadena;
+				FileReader f = null;
+				try {
+					f = new FileReader(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				BufferedReader b = new BufferedReader(f);
+				try {
+					while ((cadena = b.readLine()) != null) {
+						contenidoFichero.set(cadena);
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
 
 	@FXML
 	void onVerFicherosCarpetasAction(ActionEvent event) {
-		//TODO Diablo tiger que no se añaden a la lista
+		// TODO Diablo tiger que no se añaden a la lista
 		if (!ficherosList.isEmpty())
 			ficherosList.set(null);
 		try {
 			// Get the file
 			File f = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
-			String [] nombres = f.list();
+			String[] nombres = f.list();
 			if (f.exists()) {
-					ficherosList.addAll(nombres);
+				ficherosList.addAll(nombres);
 			} else {
-				existeCreadoText.setText("No existe");
+				existeCreadoText.setText("No existe / No es directorio");
 			}
 
 		} catch (Exception e) {
