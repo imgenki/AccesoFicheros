@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -14,6 +16,8 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,12 +26,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 public class AccesoFicherosController implements Initializable {
 	private ListProperty<String> ficherosList = new SimpleListProperty<>();
+	private StringProperty contenidoFichero = new SimpleStringProperty();
 	// view
 	@FXML
 	private GridPane view;
@@ -60,7 +67,7 @@ public class AccesoFicherosController implements Initializable {
 	private ListView<String> ficherosCarpetasList;
 
 	@FXML
-	private Text contenidoFicheroText;
+	private TextArea contenidoFicheroText;
 
 	@FXML
 	private Button verContenidoButton;
@@ -87,6 +94,7 @@ public class AccesoFicherosController implements Initializable {
 		carpetaCheckbox.disableProperty().bind(ficheroCheckbox.selectedProperty().asObject());
 
 		ficherosCarpetasList.itemsProperty().bind(ficherosList);
+		contenidoFicheroText.textProperty().bind(contenidoFichero);
 	}
 
 	@FXML
@@ -135,8 +143,25 @@ public class AccesoFicherosController implements Initializable {
 	}
 
 	@FXML
-	void onModificarFicheroAction(ActionEvent event) {
-
+	void onModificarFicheroAction(ActionEvent event) throws IOException {
+		
+		File archivo = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+		FileWriter escribir = new FileWriter(archivo);
+		String texto = "";
+		
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Modificar fichero");
+		dialog.setHeaderText("Introduce el nuevo texto");
+		dialog.setContentText("Texto:");
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+		    texto = result.get();
+		}
+		System.out.println(texto);
+		for(int i=0; i<texto.length();i++){
+		escribir.write(texto.charAt(i));
+		}
+		escribir.close();
 	}
 
 	@FXML
@@ -160,7 +185,7 @@ public class AccesoFicherosController implements Initializable {
 			BufferedReader b = new BufferedReader(f);
 			try {
 				while ((cadena = b.readLine()) != null) {
-					contenidoFicheroText.setText(cadena);
+					contenidoFichero.set(cadena);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
