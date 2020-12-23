@@ -33,7 +33,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 public class AccesoFicherosController implements Initializable {
-	private ListProperty<String> ficherosList = new SimpleListProperty<>();
+	private ListProperty<String> ficherosList = new SimpleListProperty<String>();
 	private StringProperty contenidoFichero = new SimpleStringProperty();
 	// view
 	@FXML
@@ -144,22 +144,22 @@ public class AccesoFicherosController implements Initializable {
 
 	@FXML
 	void onModificarFicheroAction(ActionEvent event) throws IOException {
-		
+
 		File archivo = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
 		FileWriter escribir = new FileWriter(archivo);
 		String texto = "";
-		
+
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Modificar fichero");
 		dialog.setHeaderText("Introduce el nuevo texto");
 		dialog.setContentText("Texto:");
 		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
-		    texto = result.get();
+		if (result.isPresent()) {
+			texto = result.get();
 		}
 		System.out.println(texto);
-		for(int i=0; i<texto.length();i++){
-		escribir.write(texto.charAt(i));
+		for (int i = 0; i < texto.length(); i++) {
+			escribir.write(texto.charAt(i));
 		}
 		escribir.close();
 	}
@@ -196,23 +196,22 @@ public class AccesoFicherosController implements Initializable {
 
 	@FXML
 	void onVerFicherosCarpetasAction(ActionEvent event) {
+		//TODO Diablo tiger que no se añaden a la lista
 		if (!ficherosList.isEmpty())
-			ficherosList = null;
+			ficherosList.set(null);
 		try {
 			// Get the file
 			File f = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
 			if (f.exists()) {
-				File[] ficheros = f.listFiles();
-				for (int x = 0; x < ficheros.length; x++) {
-					ficherosList.add(ficheros[x].getName());
-				}
-
+				for (File file : f.listFiles())
+					ficherosList.add(file.getName());
 			} else {
 				existeCreadoText.setText("No existe");
 			}
 
 		} catch (Exception e) {
-			System.err.println(e);
+			e.printStackTrace();
+			;
 		}
 	}
 
