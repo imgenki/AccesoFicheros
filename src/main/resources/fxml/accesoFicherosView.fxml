@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane fx:id="view" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="100.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+  </rowConstraints>
+   <children>
+      <Label text="Ruta Actual" />
+      <TextField fx:id="rutaText" promptText="Introduzca la ruta..." GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </TextField>
+      <Button fx:id="crearButton" mnemonicParsing="false" onAction="#onCrearAction" text="Crear" GridPane.rowIndex="1" />
+      <Button fx:id="eliminarButton" mnemonicParsing="false" onAction="#onEliminarAction" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button fx:id="moverButton" layoutX="110.0" layoutY="120.0" mnemonicParsing="false" onAction="#onMoverAction" text="Mover" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <CheckBox fx:id="carpetaCheckbox" mnemonicParsing="false" text="Es carpeta" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <CheckBox fx:id="ficheroCheckbox" mnemonicParsing="false" text="Es fichero" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <TextField fx:id="carpetaFicheroText" promptText="Introduzca la carpeta o fichero a crear, eliminar o mover..." GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </TextField>
+      <Button fx:id="verFicherosCarpetasButton" mnemonicParsing="false" onAction="#onVerFicherosCarpetasAction" text="Ver ficheros y carpetas" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <ListView fx:id="ficherosCarpetasList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
+      <ListView fx:id="contenidoFicheroList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.rowSpan="2147483647" />
+      <VBox spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <children>
+            <Button fx:id="verContenidoButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onVerContenidoAction" text="Ver contenido del fichero" />
+            <Button fx:id="modificarFicheroButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModificarFicheroAction" text="Modificar fichero" />
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</GridPane>
