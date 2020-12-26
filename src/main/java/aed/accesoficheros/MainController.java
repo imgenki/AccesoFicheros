@@ -15,7 +15,8 @@ import javafx.scene.control.TabPane;
 public class MainController implements Initializable{
 
 	private AccesoFicherosController accesoFicherosController = new AccesoFicherosController();
-    @FXML
+    private RandomController randomController = new RandomController();
+	@FXML
     private TabPane view;
 
     @FXML
@@ -40,7 +41,7 @@ public class MainController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		accesoFicherosTab.setContent(accesoFicherosController.getView());
-		
+		accesoAleatorioTab.setContent(randomController.getView());
 	}
 	
 	

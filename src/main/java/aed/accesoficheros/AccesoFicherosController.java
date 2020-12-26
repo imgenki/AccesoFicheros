@@ -232,7 +232,7 @@ public class AccesoFicherosController implements Initializable {
 
 	@FXML
 	void onVerFicherosCarpetasAction(ActionEvent event) {
-		// TODO Diablo tiger que no se añaden a la lista
+
 		if (!ficherosList.isEmpty())
 			ficherosList.set(null);
 		try {
