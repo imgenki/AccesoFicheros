@@ -7,8 +7,9 @@ import java.nio.charset.StandardCharsets;
 
 public class Random {
 
-	public static void main(String[] args) {
-		//insertar: lo que sea + espacios. Luego substring de 0 a lo que sea
+	public static void main(String[] args) throws IOException {
+		Insertar();
+		Visualizar();
 
 	}
 
@@ -16,7 +17,7 @@ public class Random {
 		RandomAccessFile fichero = new RandomAccessFile("test.txt", "rw");
 		int id = 0;
 		int Copas = 0;
-		Charset charset = StandardCharsets.UTF_16;
+		Charset charset = StandardCharsets.UTF_8;
 
 		char Separador = ',';
 		String s1 = "";
@@ -36,7 +37,7 @@ public class Random {
 
 		RandomAccessFile fichero = new RandomAccessFile("test.txt", "rw");
 
-		Charset charset = StandardCharsets.UTF_16;
+		Charset charset = StandardCharsets.UTF_8;
 
 		char separador = ',';
 		String s1 = "";
@@ -84,12 +85,12 @@ public class Random {
 
 	}
 
-	public void Visualizar() throws IOException {
+	public static void Visualizar() throws IOException {
 		int ID;
 
-		RandomAccessFile fichero = new RandomAccessFile("test.txt", "r");
+		RandomAccessFile fichero = new RandomAccessFile("hola.txt", "r");
 
-		Charset charset = StandardCharsets.UTF_16;
+		Charset charset = StandardCharsets.UTF_8;
 
 		char separador = ',';
 		String s1 = "";
@@ -135,9 +136,16 @@ public class Random {
 		}
 	}
 
-	public void Insertar() throws IOException {
-		String [] datos = new String [4];
-		RandomAccessFile fichero = new RandomAccessFile("test.txt", "rw");
+	public static void Insertar() throws IOException {
+		String[] datos = new String[5];
+		datos[0] = ("Los angele" + "                                                  ").substring(0,
+				40);
+		datos[1] = ("YUKA" + "     ").substring(0, 5);
+		datos[2] = ("UN PUEBLO" + "                                                                                     ")
+				.substring(0, 60);
+		datos[3] = "5";
+		datos[4] = "true";
+		RandomAccessFile fichero = new RandomAccessFile("hola.txt", "rw");
 		int id = 0;
 		char separador = ',';
 
