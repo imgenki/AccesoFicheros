@@ -122,8 +122,6 @@ public class XMLController implements Initializable {
 
 		List<Element> hijosRaiz = raiz.getChildren();
 
-		Element hijoEliminar = null;
-
 		for (Element hijo : hijosRaiz) {
 			String nombre = hijo.getAttributeValue("nomEquipo");
 			if (nombre != null) {
@@ -153,8 +151,6 @@ public class XMLController implements Initializable {
 
 		List<Element> hijosRaiz = raiz.getChildren();
 
-		Element hijoEliminar = null;
-
 		for (Element hijo : hijosRaiz) {
 			String nombre = hijo.getAttributeValue("nomEquipo");
 			if (nombre != null) {
@@ -176,8 +172,6 @@ public class XMLController implements Initializable {
 		Element raiz = documentJDOM.getRootElement();
 
 		List<Element> hijosRaiz = raiz.getChildren();
-
-		Element hijoEliminar = null;
 
 		for (Element hijo : hijosRaiz) {
 			String nombre = hijo.getName();
