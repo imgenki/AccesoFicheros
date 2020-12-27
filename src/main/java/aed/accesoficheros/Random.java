@@ -160,13 +160,13 @@ public class Random {
 		fichero.writeInt(id);
 		fichero.writeChar(separador);
 		//nombre
-		fichero.writeChars(datos[0]);
+		fichero.writeUTF(datos[0]);
 		fichero.writeChar(separador);
 		//liga
-		fichero.writeChars(datos[1]);
+		fichero.writeUTF(datos[1]);
 		fichero.writeChar(separador);
 		//localidad
-		fichero.writeChars(datos[2]);
+		fichero.writeUTF(datos[2]);
 		fichero.writeChar(separador);
 		//Copas
 		fichero.writeInt(Integer.parseInt(datos[3]));

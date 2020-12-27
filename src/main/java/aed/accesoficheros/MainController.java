@@ -16,6 +16,8 @@ public class MainController implements Initializable{
 
 	private AccesoFicherosController accesoFicherosController = new AccesoFicherosController();
     private RandomController randomController = new RandomController();
+    private XMLController xmlController = new XMLController();
+    
 	@FXML
     private TabPane view;
 
@@ -42,6 +44,7 @@ public class MainController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		accesoFicherosTab.setContent(accesoFicherosController.getView());
 		accesoAleatorioTab.setContent(randomController.getView());
+		accesoXMLTab.setContent(xmlController.getView());
 	}
 	
 	
