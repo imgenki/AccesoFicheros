@@ -234,7 +234,7 @@ public class AccesoFicherosController implements Initializable {
 	void onVerFicherosCarpetasAction(ActionEvent event) {
 
 		if (!ficherosList.isEmpty())
-			ficherosList.set(null);
+			ficherosList.clear();
 		try {
 			// Get the file
 			File f = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());

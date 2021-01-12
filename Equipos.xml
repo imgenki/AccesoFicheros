@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Equipos>
-  <Equipo nomEquipo="Real Madrid" copasGanadas="34">
+  <Equipo nomEquipo="Real Madrid" copasGanadas="0">
     <codLiga>PDN</codLiga>
     <Contratos>
       <Futbolista fechaInicio="2018-01-01" fechaFin="2019-01-01">Juan Perez</Futbolista>

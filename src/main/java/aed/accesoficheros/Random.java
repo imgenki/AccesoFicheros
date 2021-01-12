@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 public class Random {
 
 	public static void main(String[] args) throws IOException {
-		Insertar();
+		//Insertar();
 		Visualizar();
 
 	}
@@ -88,7 +88,7 @@ public class Random {
 	public static void Visualizar() throws IOException {
 		int ID;
 
-		RandomAccessFile fichero = new RandomAccessFile("hola.txt", "r");
+		RandomAccessFile fichero = new RandomAccessFile("Creado.txt", "r");
 
 		Charset charset = StandardCharsets.UTF_8;
 
@@ -152,7 +152,7 @@ public class Random {
 		if (fichero.length() == 0)
 			id = 1;
 		else {
-			fichero.seek(fichero.length() - 231);
+			fichero.seek(fichero.length() - 229);
 			id = fichero.readInt() + 1;
 			fichero.seek(fichero.length());
 		}

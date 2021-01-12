@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -44,7 +45,7 @@ public class RandomController implements Initializable {
 	private TextField copasText;
 
 	@FXML
-	private TextField internacionalText;
+	private CheckBox internacionalCheck;
 
 	@FXML
 	private Button insertarRegistro;
@@ -73,13 +74,13 @@ public class RandomController implements Initializable {
 	void onInsertarRegistroAction(ActionEvent event) throws IOException {
 
 		String[] datos = new String[5];
-		datos[0] = (nombreText.textProperty().get() + "                                                  ").substring(0,
-				40);
+		datos[0] = (nombreText.textProperty().get() + "                                                  ")
+				.substring(0,40);
 		datos[1] = (ligaText.textProperty().get() + "     ").substring(0, 5);
 		datos[2] = (localidadText.textProperty().get() + "                                                                                     ")
 				.substring(0, 60);
 		datos[3] = copasText.textProperty().get();
-		datos[4] = internacionalText.textProperty().get();
+		datos[4] = internacionalCheck.selectedProperty().toString();
 
 		RandomAccessFile fichero = new RandomAccessFile(rutaText.textProperty().get(), "rw");
 		int id = 0;

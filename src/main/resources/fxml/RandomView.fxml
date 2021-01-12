@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
@@ -31,7 +32,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </TextField>
-      <VBox spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
+      <VBox alignment="TOP_CENTER" spacing="5.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
          <children>
             <Button fx:id="verContenidoButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onVerContenidoAction" text="Ver contenido del fichero" />
             <Separator prefWidth="200.0" />
@@ -40,7 +41,7 @@
             <TextField fx:id="ligaText" promptText="Código Liga..." />
             <TextField fx:id="localidadText" layoutX="10.0" layoutY="109.0" promptText="Localidad..." />
             <TextField fx:id="copasText" layoutX="10.0" layoutY="140.0" promptText="Numero de copas..." />
-            <TextField fx:id="internacionalText" layoutX="10.0" layoutY="170.0" promptText="Internacional (true/false)..." />
+            <CheckBox fx:id="internacionalCheck" mnemonicParsing="false" text="Internacional" />
             <Button fx:id="insertarRegistro" layoutX="10.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onInsertarRegistroAction" text="Insertar Registro" />
             <Separator prefWidth="200.0" />
             <Button fx:id="modificarCopasButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModificarCopasAction" text="Modificar copas (ID, Copas)" />
