@@ -114,6 +114,7 @@ public class AccesoFicherosController implements Initializable {
 					existeCreadoText.setText("No existe - creado");
 				else
 					existeCreadoText.setText("Ya existe");
+			onVerFicherosCarpetasAction(event);
 		} catch (Exception e) {
 			System.err.println(e);
 		}
@@ -142,6 +143,7 @@ public class AccesoFicherosController implements Initializable {
 			} catch (Exception e) {
 				System.err.println(e);
 			}
+		onVerFicherosCarpetasAction(event);
 	}
 
 	@FXML
@@ -169,6 +171,7 @@ public class AccesoFicherosController implements Initializable {
 		}
 		escribir.close();
 		}
+		onVerFicherosCarpetasAction(event);
 	}
 
 	@FXML
@@ -197,6 +200,7 @@ public class AccesoFicherosController implements Initializable {
 				else
 					existeCreadoText.setText("No Renombrado: ");
 			}
+			onVerFicherosCarpetasAction(event);
 		} catch (Exception e) {
 			System.err.println(e);
 		}
