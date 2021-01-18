@@ -9,12 +9,12 @@ public class Random {
 
 	public static void main(String[] args) throws IOException {
 		//Insertar();
-		Visualizar();
+		VisualizaEquipoID();
 
 	}
 
 	public static void Modificar() throws IOException {
-		RandomAccessFile fichero = new RandomAccessFile("test.txt", "rw");
+		RandomAccessFile fichero = new RandomAccessFile("fichero.dat", "rw");
 		int id = 0;
 		int Copas = 0;
 		Charset charset = StandardCharsets.UTF_8;
@@ -32,12 +32,12 @@ public class Random {
 
 	}
 
-	public void VisualizaEquipoID() throws IOException {
-		int id = 0;
+	public static void VisualizaEquipoID() throws IOException {
+		int id = 1;
 
-		RandomAccessFile fichero = new RandomAccessFile("test.txt", "rw");
+		RandomAccessFile fichero = new RandomAccessFile("fichero.dat", "rw");
 
-		Charset charset = StandardCharsets.UTF_8;
+		Charset charset = StandardCharsets.UTF_16;
 
 		char separador = ',';
 		String s1 = "";
@@ -52,21 +52,21 @@ public class Random {
 
 			separador = fichero.readChar();
 
-			byte[] arr1 = new byte[40];
+			byte[] arr1 = new byte[80];
 			fichero.readFully(arr1);
 			s1 = new String(arr1, charset);
 			System.out.println("Nombre Equipo: " + s1);
 
 			separador = fichero.readChar();
 
-			byte[] arr2 = new byte[5];
+			byte[] arr2 = new byte[10];
 			fichero.readFully(arr2);
 			s1 = new String(arr2, charset);
 			System.out.println("Codigo Liga: " + s1);
 
 			separador = fichero.readChar();
 
-			byte[] arr3 = new byte[60];
+			byte[] arr3 = new byte[120];
 			fichero.readFully(arr3);
 			s1 = new String(arr3, charset);
 			System.out.println("Localidad: " + s1);
@@ -88,9 +88,9 @@ public class Random {
 	public static void Visualizar() throws IOException {
 		int ID;
 
-		RandomAccessFile fichero = new RandomAccessFile("Creado.txt", "r");
+		RandomAccessFile fichero = new RandomAccessFile("fichero.dat", "r");
 
-		Charset charset = StandardCharsets.UTF_8;
+		Charset charset = StandardCharsets.UTF_16;
 
 		char separador = ',';
 		String s1 = "";
@@ -104,21 +104,21 @@ public class Random {
 
 				separador = fichero.readChar();
 
-				byte[] arr1 = new byte[40];
+				byte[] arr1 = new byte[80];
 				fichero.readFully(arr1);
 				s1 = new String(arr1, charset);
 				System.out.println("Nombre Equipo: " + s1);
 
 				separador = fichero.readChar();
 
-				byte[] arr2 = new byte[5];
+				byte[] arr2 = new byte[10];
 				fichero.readFully(arr2);
 				s1 = new String(arr2, charset);
 				System.out.println("Codigo Liga: " + s1);
 
 				separador = fichero.readChar();
 
-				byte[] arr3 = new byte[60];
+				byte[] arr3 = new byte[120];
 				fichero.readFully(arr3);
 				s1 = new String(arr3, charset);
 				System.out.println("Localidad: " + s1);
@@ -145,14 +145,14 @@ public class Random {
 				.substring(0, 60);
 		datos[3] = "5";
 		datos[4] = "true";
-		RandomAccessFile fichero = new RandomAccessFile("hola.txt", "rw");
+		RandomAccessFile fichero = new RandomAccessFile("fichero.dat", "rw");
 		int id = 0;
 		char separador = ',';
 
 		if (fichero.length() == 0)
 			id = 1;
 		else {
-			fichero.seek(fichero.length() - 229);
+			fichero.seek(fichero.length() - 231);
 			id = fichero.readInt() + 1;
 			fichero.seek(fichero.length());
 		}
@@ -160,13 +160,13 @@ public class Random {
 		fichero.writeInt(id);
 		fichero.writeChar(separador);
 		//nombre
-		fichero.writeUTF(datos[0]);
+		fichero.writeChars(datos[0]);
 		fichero.writeChar(separador);
 		//liga
-		fichero.writeUTF(datos[1]);
+		fichero.writeChars(datos[1]);
 		fichero.writeChar(separador);
 		//localidad
-		fichero.writeUTF(datos[2]);
+		fichero.writeChars(datos[2]);
 		fichero.writeChar(separador);
 		//Copas
 		fichero.writeInt(Integer.parseInt(datos[3]));

@@ -100,7 +100,8 @@ public class XMLController implements Initializable {
 		XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
 		FileOutputStream file = new FileOutputStream("Equipos.XML");
 		out.output(documentJDOM, file);
-
+		
+		onVerContenidoAction(event);
 	}
 
 	@FXML
@@ -140,6 +141,8 @@ public class XMLController implements Initializable {
 		XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
 		FileOutputStream file = new FileOutputStream("Equipos.XML");
 		out.output(documentJDOM, file);
+		
+		onVerContenidoAction(event);
 	}
 
 	@FXML
@@ -162,6 +165,8 @@ public class XMLController implements Initializable {
 		XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
 		FileOutputStream file = new FileOutputStream("Equipos.XML");
 		out.output(documentJDOM, file);
+		
+		onVerContenidoAction(event);
 	}
 
 	@FXML

@@ -111,6 +111,8 @@ public class RandomController implements Initializable {
 		// Internacional
 		fichero.writeBoolean(Boolean.parseBoolean(datos[4]));
 		fichero.writeChar(separador);
+		
+		onVerContenidoAction(event);
 	}
 
 	@FXML
@@ -118,7 +120,7 @@ public class RandomController implements Initializable {
 		RandomAccessFile fichero = new RandomAccessFile(rutaText.textProperty().get(), "rw");
 		int id = Integer.parseInt(idText.textProperty().get());
 		int Copas = Integer.parseInt(copasText.textProperty().get());
-		Charset charset = StandardCharsets.UTF_8;
+		Charset charset = StandardCharsets.UTF_16;
 
 		char Separador = ',';
 		String s1 = "";
@@ -126,10 +128,11 @@ public class RandomController implements Initializable {
 			contenidoFicheroText.setText("No hay nada que modificar");
 		else {
 			id = (id - 1) * 231;
-			fichero.seek(id + 231);
+			fichero.seek(id + 222);
 
 			fichero.writeInt(Copas);
 		}
+		onVerContenidoAction(event);
 	}
 
 	@FXML
@@ -138,7 +141,7 @@ public class RandomController implements Initializable {
 
 		RandomAccessFile fichero = new RandomAccessFile(rutaText.textProperty().get(), "r");
 
-		Charset charset = StandardCharsets.UTF_8;
+		Charset charset = StandardCharsets.UTF_16;
 
 		char separador = ',';
 		String s1 = "";
@@ -148,25 +151,25 @@ public class RandomController implements Initializable {
 			contenidoFicheroText.setText("No hay nada que visualizar");
 		else {
 			while (fichero.getFilePointer() < fichero.length()) {
-
+				
 				contenido += ("ID: " + fichero.readInt());
 				contenido += fichero.readChar();
 
-				byte[] arr1 = new byte[40];
+				byte[] arr1 = new byte[80];
 				fichero.readFully(arr1);
 				s1 = new String(arr1, charset);
 				contenido += ("Nombre Equipo: " + s1);
 
 				contenido += fichero.readChar();
 
-				byte[] arr2 = new byte[5];
+				byte[] arr2 = new byte[10];
 				fichero.readFully(arr2);
 				s1 = new String(arr2, charset);
 				contenido += ("Codigo Liga: " + s1);
 
 				contenido += fichero.readChar();
 
-				byte[] arr3 = new byte[60];
+				byte[] arr3 = new byte[120];
 				fichero.readFully(arr3);
 				s1 = new String(arr3, charset);
 				contenido += ("Localidad: " + s1);
@@ -190,38 +193,38 @@ public class RandomController implements Initializable {
 	void onVerDatosEquipoAction(ActionEvent event) throws IOException {
 		int id = Integer.parseInt(idText.textProperty().get());
 
-		RandomAccessFile fichero = new RandomAccessFile(rutaText.textProperty().get(), "rw");
+		RandomAccessFile fichero = new RandomAccessFile(rutaText.textProperty().get(), "r");
 
-		Charset charset = StandardCharsets.UTF_8;
+		Charset charset = StandardCharsets.UTF_16;
 
 		char separador = ',';
 		String s1 = "";
 		String contenido = "";
+		
 		if (fichero.length() == 0)
 			contenidoFicheroText.setText("No hay datos a visualizar");
 		else {
 			id = (id - 1) * 231;
 			fichero.seek(id);
-
 			contenido += ("ID: " + fichero.readInt());
 
 			contenido += fichero.readChar();
 
-			byte[] arr1 = new byte[40];
+			byte[] arr1 = new byte[80];
 			fichero.readFully(arr1);
 			s1 = new String(arr1, charset);
 			contenido += ("Nombre Equipo: " + s1);
 
 			contenido += fichero.readChar();
 
-			byte[] arr2 = new byte[5];
+			byte[] arr2 = new byte[10];
 			fichero.readFully(arr2);
 			s1 = new String(arr2, charset);
 			contenido += ("Codigo Liga: " + s1);
 
 			contenido += fichero.readChar();
 
-			byte[] arr3 = new byte[60];
+			byte[] arr3 = new byte[120];
 			fichero.readFully(arr3);
 			s1 = new String(arr3, charset);
 			contenido += ("Localidad: " + s1);
@@ -232,11 +235,13 @@ public class RandomController implements Initializable {
 
 			contenido += fichero.readChar();
 
-			contenido += ("Internacional " + fichero.readBoolean());
+			contenido += ("Internacional: " + fichero.readBoolean());
 
 			contenido += fichero.readChar();
 
 		}
+			contenidoFicheroText.setText(contenido);
+			
 	}
 
 	public GridPane getView() {
