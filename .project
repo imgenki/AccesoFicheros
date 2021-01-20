@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>MavenProjectTemplate</name>
-	<comment>Proyecto base en Eclipse para Maven</comment>
+	<name>AccesoFicheros</name>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>

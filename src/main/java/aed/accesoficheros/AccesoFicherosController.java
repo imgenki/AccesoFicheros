@@ -114,7 +114,6 @@ public class AccesoFicherosController implements Initializable {
 					existeCreadoText.setText("No existe - creado");
 				else
 					existeCreadoText.setText("Ya existe");
-			onVerFicherosCarpetasAction(event);
 		} catch (Exception e) {
 			System.err.println(e);
 		}
@@ -124,7 +123,7 @@ public class AccesoFicherosController implements Initializable {
 	@FXML
 	void onEliminarAction(ActionEvent event) {
 		File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
-		if (carpetaCheckbox.isSelected())
+		if (f1.isDirectory()) {
 			try {
 				borrarDirectorio(f1);
 				if (f1.delete())
@@ -134,7 +133,8 @@ public class AccesoFicherosController implements Initializable {
 			} catch (Exception e) {
 				System.err.println(e);
 			}
-		if (ficheroCheckbox.isSelected())
+		}
+		if (f1.isFile()) {
 			try {
 				if (f1.delete())
 					existeCreadoText.setText("Borrado");
@@ -143,7 +143,7 @@ public class AccesoFicherosController implements Initializable {
 			} catch (Exception e) {
 				System.err.println(e);
 			}
-		onVerFicherosCarpetasAction(event);
+		}
 	}
 
 	@FXML
@@ -165,13 +165,13 @@ public class AccesoFicherosController implements Initializable {
 		if (result.isPresent()) {
 			texto = result.get();
 		}
-		System.out.println(texto);
+
 		for (int i = 0; i < texto.length(); i++) {
 			escribir.write(texto.charAt(i));
 		}
 		escribir.close();
 		}
-		onVerFicherosCarpetasAction(event);
+
 	}
 
 	@FXML
@@ -180,18 +180,18 @@ public class AccesoFicherosController implements Initializable {
 
 			// Get the file
 			File f1 = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
-			String ruta2 = null;
+			String ruta2 = "";
 
 			TextInputDialog dialog = new TextInputDialog();
 			dialog.initOwner(App.getPrimaryStage());
 			dialog.setTitle("Mover fichero");
-			dialog.setHeaderText("Nombre anterior" + carpetaFicheroText.textProperty().get());
+			dialog.setHeaderText("Nombre anterior: " + carpetaFicheroText.textProperty().get());
 			dialog.setContentText("Nuevo nombre:");
 			Optional<String> result = dialog.showAndWait();
 			if (result.isPresent()) {
 				ruta2 = result.get();
 			}
-			File f2 = new File(rutaText.textProperty().get() + ruta2);
+			File f2 = new File(rutaText.textProperty().get() + "\\" + ruta2);
 			// Create new file
 			// if it does not exist
 			if (f2 != null) {
@@ -200,7 +200,6 @@ public class AccesoFicherosController implements Initializable {
 				else
 					existeCreadoText.setText("No Renombrado: ");
 			}
-			onVerFicherosCarpetasAction(event);
 		} catch (Exception e) {
 			System.err.println(e);
 		}
@@ -241,12 +240,12 @@ public class AccesoFicherosController implements Initializable {
 			ficherosList.clear();
 		try {
 			// Get the file
-			File f = new File(rutaText.textProperty().get() + "\\" + carpetaFicheroText.textProperty().get());
+			File f = new File(rutaText.textProperty().get());
 			String[] nombres = f.list();
 			if (f.exists()) {
 				ficherosList.addAll(nombres);
 			} else {
-				existeCreadoText.setText("No existe / No es directorio");
+				existeCreadoText.setText("No existe /n No es directorio");
 			}
 
 		} catch (Exception e) {
