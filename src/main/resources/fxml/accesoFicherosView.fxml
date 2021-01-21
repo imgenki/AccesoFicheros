@@ -39,7 +39,7 @@
       </TextField>
       <Button fx:id="crearButton" mnemonicParsing="false" onAction="#onCrearAction" text="Crear" GridPane.rowIndex="1" />
       <Button fx:id="eliminarButton" mnemonicParsing="false" onAction="#onEliminarAction" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button fx:id="moverButton" layoutX="110.0" layoutY="120.0" mnemonicParsing="false" onAction="#onMoverAction" text="Renombrar" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button fx:id="moverButton" layoutX="110.0" layoutY="120.0" mnemonicParsing="false" onAction="#onMoverAction" text="Ren/Mov" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <CheckBox fx:id="carpetaCheckbox" mnemonicParsing="false" text="Es carpeta" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <CheckBox fx:id="ficheroCheckbox" mnemonicParsing="false" text="Es fichero" GridPane.columnIndex="4" GridPane.rowIndex="1" />
       <TextField fx:id="carpetaFicheroText" promptText="Introduzca la carpeta o fichero a crear, eliminar o mover..." GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
